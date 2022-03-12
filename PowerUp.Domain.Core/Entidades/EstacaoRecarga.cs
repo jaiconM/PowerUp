@@ -2,9 +2,8 @@
 
 namespace PowerUp.Domain.Core.Entidades
 {
-    public class EstacaoRecarga
+    public class EstacaoRecarga : EntidadeBase
     {
-        public Guid Id { get; set; }
         public string Nome { get; set; }
         public Tipo Tipo { get; set; }
         public double Latitude { get; set; }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PowerUp.Domain.Core.Entidades;
 
 namespace PowerUp.Domain.Core.Interfaces
 {
-    public interface IEstacaoRecargaRepository
+    public interface IEstacaoRecargaRepository : IBaseRepository<EstacaoRecarga>
     {
 
     }
