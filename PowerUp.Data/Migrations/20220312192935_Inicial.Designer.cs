@@ -12,7 +12,7 @@ using PowerUp.Data.Config;
 namespace PowerUp.Data.Migrations
 {
     [DbContext(typeof(PowerUpDbContext))]
-    [Migration("20220312190024_Inicial")]
+    [Migration("20220312192935_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

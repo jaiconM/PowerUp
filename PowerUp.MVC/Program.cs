@@ -1,15 +1,20 @@
-var builder = WebApplication.CreateBuilder(args);
+using PowerUp.App.Interfaces;
+using PowerUp.App.Services;
+using PowerUp.Data.Repository;
+using PowerUp.Domain.Core.Interfaces;
+using PowerUp.Domain.Core.Servicos;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IEstacaoRecargaApp, EstacaoRecargaApp>();
+builder.Services.AddSingleton<IEstacaoRecargaService, EstacaoRecargaService>();
+builder.Services.AddSingleton<IEstacaoRecargaRepository, EstacaoRecargaRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
