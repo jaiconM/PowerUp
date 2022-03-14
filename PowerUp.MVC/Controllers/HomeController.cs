@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PowerUp.App.Interfaces;
+using PowerUp.Domain.Core.Entidades;
 using PowerUp.Domain.Core.Enums;
 using PowerUp.MVC.Models;
 using System.Diagnostics;
@@ -20,6 +21,14 @@ namespace PowerUp.MVC.Controllers
         public IActionResult Index()
         {
             var estacoesDeRecarga = _estacaoRecargaApp.ListarTodos();
+
+            var model = Mapeie(estacoesDeRecarga);
+
+            return View(model);
+        }
+
+        private static List<EstacoesDeCargaViewModel> Mapeie(IReadOnlyList<EstacaoRecarga> estacoesDeRecarga)
+        {
             var model = new List<EstacoesDeCargaViewModel>();
             foreach (var estacao in estacoesDeRecarga)
             {
@@ -28,12 +37,13 @@ namespace PowerUp.MVC.Controllers
                     {
                         Icone = estacao.Tipo == Tipo.Veicular ? IconeTipoVeicular : IconeTipoMovel,
                         Titulo = $"{estacao.Nome} (Tipo: {estacao.Tipo})",
-                        Latitude = estacao.Latitude.ToString().Replace(',','.'),
+                        Latitude = estacao.Latitude.ToString().Replace(',', '.'),
                         Longitude = estacao.Longitude.ToString().Replace(',', '.')
                     }
                 );
             }
-            return View(model);
+
+            return model;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY_AQUI"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=Google_maps_api_key_aqui"></script>
 </head>
 <body onload="ExibirGoogleMaps()">
     <div id="mapDiv" style="width:100%;height:600px;"></div>
@@ -17,7 +17,7 @@
 
             @foreach (var item in Model)
             {
-                @:AddMarker('@item.Latitude', '@item.Longitude', '@item.Titulo', '@item.Icone', map);
+                @:AddMarker('@item.Latitude', '@item.Longitude', '@Html.Raw(@item.Titulo)', '@item.Icone', map);
             }
 
         }

@@ -1,14 +1,7 @@
-using PowerUp.App.Interfaces;
-using PowerUp.App.Services;
-using PowerUp.Data.Repository;
-using PowerUp.Domain.Core.Interfaces;
-using PowerUp.Domain.Core.Servicos;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IEstacaoRecargaApp, EstacaoRecargaApp>();
-builder.Services.AddSingleton<IEstacaoRecargaService, EstacaoRecargaService>();
-builder.Services.AddSingleton<IEstacaoRecargaRepository, EstacaoRecargaRepository>();
+
+PowerUp.MVC.Config.MvcServiceCollectionExtensions.ConfigureIoC(builder.Services);
 
 var app = builder.Build();
 
@@ -17,6 +10,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+PowerUp.MVC.Config.ApplicationBuilderExtensions.DefinaIdioma(app);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
