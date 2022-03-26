@@ -1,4 +1,4 @@
-﻿@model List<EstacoesDeCargaViewModel>
+﻿@model MapaViewModel
 
 @{
     ViewData["Title"] = "Mapa";
@@ -6,42 +6,43 @@
 
 <html>
 <head>
-    <script src="https://maps.googleapis.com/maps/api/js?key=Google_maps_api_key_aqui"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY_AQUI"></script>
 </head>
 <body onload="ExibirGoogleMaps()">
     <div id="mapDiv" style="width:100%;height:600px;"></div>
     <script type="text/javascript">
 
         function ExibirGoogleMaps() {
-            var map = MonteOMapa();
+            var map = MonteOMapa('@Model.LatitudeCentral', '@Model.LongitudeCentral');
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.EstacoesRecarga)
             {
-                @:AddMarker('@item.Latitude', '@item.Longitude', '@Html.Raw(@item.Titulo)', '@item.Icone', map);
+                @:AdicioneMarker('@item.Latitude', '@item.Longitude', '@Html.Raw(@item.Titulo)', '@item.Icone', map);
             }
 
         }
 
-        function AddMarker(latitude, longitude, title, icone, map) {
+        function AdicioneMarker(latitude, longitude, titulo, icone, map) {
             var latLng = new google.maps.LatLng(latitude, longitude);
             var marker = new google.maps.Marker({
                 position: latLng,
-                title: title,
+                title: titulo,
                 icon: icone
             });
             marker.setMap(map);
         }
 
-        function MonteOMapa() {
-            var meuEndereco = new google.maps.LatLng(-22.905895419011326, -43.17685031645948);
+        function MonteOMapa(latitude, longitude) {
+            var pontoCentral = new google.maps.LatLng(latitude, longitude);
             var mapOptions = {
-                center: meuEndereco,
+                center: pontoCentral,
                 zoom: 15,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
             return map;
         }
+
     </script>
 </body>
 </html>

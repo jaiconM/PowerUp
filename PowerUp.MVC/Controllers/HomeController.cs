@@ -9,8 +9,6 @@ namespace PowerUp.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private const string IconeTipoMovel = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-        private const string IconeTipoVeicular = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
         private readonly IEstacaoRecargaApp _estacaoRecargaApp;
 
         public HomeController(IEstacaoRecargaApp estacaoRecargaApp)
@@ -22,28 +20,9 @@ namespace PowerUp.MVC.Controllers
         {
             var estacoesDeRecarga = _estacaoRecargaApp.ListarTodos();
 
-            var model = Mapeie(estacoesDeRecarga);
+            var model = new MapaViewModel(estacoesDeRecarga);
 
             return View(model);
-        }
-
-        private static List<EstacoesDeCargaViewModel> Mapeie(IReadOnlyList<EstacaoRecarga> estacoesDeRecarga)
-        {
-            var model = new List<EstacoesDeCargaViewModel>();
-            foreach (var estacao in estacoesDeRecarga)
-            {
-                model.Add(
-                    new EstacoesDeCargaViewModel
-                    {
-                        Icone = estacao.Tipo == Tipo.Veicular ? IconeTipoVeicular : IconeTipoMovel,
-                        Titulo = $"{estacao.Nome} (Tipo: {estacao.Tipo})",
-                        Latitude = estacao.Latitude.ToString().Replace(',', '.'),
-                        Longitude = estacao.Longitude.ToString().Replace(',', '.')
-                    }
-                );
-            }
-
-            return model;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,6 +1,6 @@
-namespace PowerUp.MVC.Models
+﻿namespace PowerUp.MVC.Models
 {
-    public class EstacoesDeCargaViewModel
+    public class EstacoesDeRecargaViewModel
     {
         public string Titulo { get; set; }
         public string Icone { get; set; }
